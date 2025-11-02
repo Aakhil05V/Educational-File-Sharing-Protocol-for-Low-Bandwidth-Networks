@@ -1,0 +1,36 @@
+# Educational File Sharing Protocol for Low-Bandwidth Networks
+# Project Dependencies
+
+# Core Requirements
+Python>=3.8
+
+# Networking and Protocol
+socket
+threading
+
+# Compression
+zlib
+
+# Data Hashing and Checksums
+hashlib
+
+# File Operations
+pathlib
+os
+sys
+
+# Type Hints
+typing
+
+# Optional: Testing
+pytest>=7.0
+pytest-cov>=4.0
+
+# Optional: Code Quality
+black>=23.0
+flake8>=6.0
+pylint>=2.0
+
+# Optional: Documentation
+Sphinx>=5.0
+sphinx-rtd-theme>=1.0
