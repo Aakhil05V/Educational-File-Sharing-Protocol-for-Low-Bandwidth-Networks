@@ -36,213 +36,75 @@ This project provides a complete client-server file sharing system optimized for
 ### Requirements
 
 - Python 3.8 or higher
-- No external dependencies required for core functionality
+- See `requirements.txt` for Python dependencies
 
 ### Setup
 
 1. Clone the repository:
-```bash
-git clone https://github.com/Aakhil05V/Educational-File-Sharing-Protocol-for-Low-Bandwidth-Networks.git
-cd Educational-File-Sharing-Protocol-for-Low-Bandwidth-Networks
-```
+   ```bash
+   git clone <repository-url>
+   cd Educational-File-Sharing-Protocol-for-Low-Bandwidth-Networks
+   ```
 
-2. Install dependencies (optional):
-```bash
-pip install -r requirements.txt
-```
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 ## Usage
 
-### Starting the Server
+### Socket-Based Protocol
 
-```bash
-python server.py [host] [port] [data_directory]
-```
+1. Start the server:
+   ```bash
+   python server.py
+   ```
 
-Example:
-```bash
-python server.py 0.0.0.0 5000 ./shared_files
-```
+2. In another terminal, run the client:
+   ```bash
+   python client.py
+   ```
 
-This will start the server on localhost:5000, serving files from the ./shared_files directory.
+### Web Usage
 
-### Using the Client
+A modern web interface is available for easy file management without using the command line.
 
-#### Download a file:
-```bash
-python client.py localhost 5000 download filename.txt
-```
+1. Start the Flask web server:
+   ```bash
+   python web_server.py
+   ```
 
-#### Upload a file:
-```bash
-python client.py localhost 5000 upload /path/to/local/file.txt
-```
+2. Open your browser and navigate to:
+   ```
+   http://localhost:5000
+   ```
 
-## Project Structure
+3. The web interface provides:
+   - **File Upload**: Upload files via drag-and-drop or file picker
+   - **File Download**: Download files directly from the browser
+   - **File List**: View all available files with their details
+   - **Responsive UI**: Works on desktop and mobile devices
 
-```
-.
-├── protocol.py          # Core protocol implementation
-├── client.py            # Client implementation
-├── server.py            # Server implementation
-├── requirements.txt     # Project dependencies
-├── .gitignore          # Git ignore rules
-└── README.md           # This file
-```
+#### Web Interface Features
 
-## File Descriptions
-
-### protocol.py
-
-Contains the core protocol implementation including:
-- `ChunkSize`: Enumeration of available chunk sizes
-- `CompressionLevel`: Enumeration of compression levels
-- `MessageType`: Protocol message types
-- `FileMetadata`: File metadata handler
-- `ProtocolMessage`: Message serialization/deserialization
-- `FileTransferProtocol`: Main protocol handler
-
-### client.py
-
-Provides client-side functionality:
-- `FileShareClient`: Main client class for connecting to servers
-- Connection management
-- File download/upload operations
-- Protocol handshake
-
-### server.py
-
-Provides server-side functionality:
-- `FileShareServer`: Main server class
-- Multi-threaded connection handling
-- File serving and upload handling
-- Request processing and response generation
-
-## How It Works
-
-### Protocol Handshake
-
-1. Client connects to server
-2. Client sends handshake message with protocol version
-3. Server responds with acknowledgment
-
-### File Download
-
-1. Client sends file request with filename
-2. Server validates file exists and is accessible
-3. Server splits file into chunks
-4. Server sends chunks to client (optionally compressed)
-5. Client reassembles file and verifies checksum
-
-### File Upload
-
-1. Client reads local file and splits into chunks
-2. Client sends each chunk to server
-3. Server receives and stores chunks
-4. Server acknowledges receipt of each chunk
-
-## Configuration
-
-The protocol can be configured for different network conditions:
-
-```python
-from protocol import ChunkSize, FileTransferProtocol
-
-# For ultra-low bandwidth networks
-protocol = FileTransferProtocol(
-    chunk_size=ChunkSize.SMALL,     # 1 KB chunks
-    compression=True                 # Enable compression
-)
-
-# For higher bandwidth
-protocol = FileTransferProtocol(
-    chunk_size=ChunkSize.XLARGE,    # 64 KB chunks
-    compression=False                # Disable compression if not needed
-)
-```
-
-## Performance Optimization
-
-For optimal performance on low-bandwidth networks:
-
-1. Use smaller chunk sizes (SMALL or MEDIUM)
-2. Enable compression for text files
-3. Disable compression for already-compressed files (JPG, ZIP, etc.)
-4. Use appropriate timeout values
-5. Implement retry logic for unreliable connections
+- **User-Friendly Dashboard**: Simple and intuitive interface for file operations
+- **Real-time Status**: Get immediate feedback on upload/download operations
+- **File Management**: View file sizes and upload timestamps
+- **Error Handling**: Clear error messages for troubleshooting
 
 ## Contributing
 
-Contributions are welcome! Please follow these guidelines:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Commit your changes (`git commit -m 'Add amazing feature'`)
-5. Push to the branch (`git push origin feature/amazing-feature`)
-6. Open a Pull Request
-
-### Development Setup
-
-```bash
-# Install development dependencies
-pip install -r requirements.txt
-
-# Run tests
-pytest
-
-# Check code quality
-flake8 *.py
-black *.py
-pylint *.py
-```
-
-## Testing
-
-To test the implementation:
-
-```bash
-# Terminal 1: Start the server
-python server.py localhost 5000 ./test_files
-
-# Terminal 2: Test file download
-python client.py localhost 5000 download test_file.txt
-
-# Terminal 3: Test file upload
-python client.py localhost 5000 upload local_file.txt
-```
+Contributions are welcome! Please feel free to submit pull requests or open issues for bugs and feature requests.
 
 ## Future Enhancements
 
-- [ ] Implement file resume capability
-- [ ] Add bandwidth throttling
-- [ ] Implement peer-to-peer mode
-- [ ] Add authentication and encryption
-- [ ] Implement directory transfer
-- [ ] Add progress monitoring
-- [ ] Create web UI
-- [ ] Add metrics and logging
+- [ ] Create web UI ✓ (Completed)
+- [ ] Implement streaming for large files
+- [ ] Add authentication and authorization
+- [ ] Support for cloud storage backends
+- [ ] Performance monitoring and analytics
+- [ ] Mobile app for iOS and Android
 
 ## License
 
-This project is provided for educational purposes. Feel free to use and modify as needed.
-
-## Educational Purpose
-
-This project is designed as an educational tool to understand:
-
-- Network socket programming
-- Protocol design and implementation
-- Data compression techniques
-- Multi-threading and concurrent programming
-- File I/O operations
-- Error handling and recovery
-- Low-bandwidth optimization strategies
-
-## Support
-
-For questions or issues, please open an issue on GitHub.
-
-## Author
-
-Created as an educational project demonstrating file sharing protocols for low-bandwidth networks.
+This project is open source and available under the MIT License.
