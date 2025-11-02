@@ -5,3 +5,4 @@ flake8>=6.0
 pylint>=2.0
 Sphinx>=5.0
 sphinx-rtd-theme>=1.0
+Flask>=2.0
